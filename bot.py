@@ -93,7 +93,6 @@ async def process_join_request(request: ChatJoinRequest, bot: Bot):
         try:
             await bot.send_message(admin_id, notify_text)
         except Exception as e:
-            # Если админ не нажал /start боту, бот не сможет ему написать
             logging.error(f"Не удалось отправить ЛС админу {admin_id}. Ошибка: {e}")
 
 # --- КОМАНДА /start ---
@@ -122,7 +121,7 @@ async def cmd_stats(message: types.Message):
     )
     await message.answer(text)
     
-# --- ЗАПУСК БОТА ---
+    # --- ЗАПУСК БОТА ---
 async def main():
     # Настройка логов для красивого вывода в Railway
     logging.basicConfig(
