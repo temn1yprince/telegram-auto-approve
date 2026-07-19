@@ -121,3 +121,27 @@ async def cmd_stats(message: types.Message):
         "━━━━━━━━━━━━━━━━━━━━"
     )
     await message.answer(text)
+    
+# --- ЗАПУСК БОТА ---
+async def main():
+    # Настройка логов для красивого вывода в Railway
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s | %(levelname)s | %(message)s',
+        datefmt='%H:%M:%S'
+    )
+    
+    bot = Bot(
+        token=BOT_TOKEN, 
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+    )
+    dp = Dispatcher()
+    dp.include_router(router)
+    
+    logging.info("🚀 Бот успешно запущен!")
+    
+    await bot.delete_webhook(drop_pending_updates=True)
+    await dp.start_polling(bot)
+
+if name == "main":
+    asyncio.run(main())
